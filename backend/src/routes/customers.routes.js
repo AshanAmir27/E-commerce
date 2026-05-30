@@ -5,5 +5,6 @@ const router = express.Router();
 
 // GET /api/users
 router.get("/", customersController.getCustomers);
+router.post("/", customersController.createCustomer);
 
 export default router;

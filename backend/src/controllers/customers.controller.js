@@ -5,6 +5,7 @@ const getCustomers = async (req, res) => {
     const customers = await customersService.getCustomers();
 
     res.status(200).json({
+      code:200,
       success: true,
       data: customers,
     });
@@ -16,6 +17,24 @@ const getCustomers = async (req, res) => {
   }
 };
 
+const createCustomer = async (req,res) => {
+  try {
+    const data = await customersService.createCustomer(req.body);
+    res.status(201).json({
+      code: 201,
+      success: true,
+      data
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message:error.message
+    })
+    
+  }
+}
+
 export default {
   getCustomers,
+  createCustomer
 };
