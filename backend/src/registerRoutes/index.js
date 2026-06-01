@@ -1,4 +1,4 @@
-import customersRoute from '../routes/customers.routes.js'
+import customersRoute from '../modules/customers/customer.route.js'
 
 // routes/index.ts
 export const registerRoutes = (app) => {
