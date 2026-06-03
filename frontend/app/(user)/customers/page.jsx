@@ -1,4 +1,4 @@
-import { getCustomers } from "../../services/customer.service";
+import { getCustomers } from "../../../services/customer.service";
 
 export default async function CustomerPage(){
     const customers = await getCustomers();
@@ -9,7 +9,7 @@ export default async function CustomerPage(){
             {customers.map((customer)=>(
                 <div key={customer.customer_id}>
                     <br />
-                    <p>{customer.username}</p>
+                    <p style={{color: 'white'}}>{customer.username}</p>
                     <p>{customer.email}</p>
                     <p>{customer.city}</p>
                     <br />
