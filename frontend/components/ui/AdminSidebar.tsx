@@ -7,8 +7,8 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside style={{ width: "200px" }}>
-      <h3>Admin</h3>
+    <aside style={{ width: "200px", marginTop: '-20px'  }}>
+      <h3>Admin Dashboard</h3>
       <ul>
         <li>
           <Link

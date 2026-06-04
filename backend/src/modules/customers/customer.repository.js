@@ -6,13 +6,13 @@ const getCustomers = async () => {
 };
 
 const createCustomer = async (data) => {
-  const { username, email, signup_date, city } = data;
+  const { username, email, city } = data;
 
   const query = `INSERT INTO customers (username,email,signup_date, city)
-    VALUES (?,?,?,?)
+    VALUES (?,?,curdate(),?)
   `;
 
-  const values = [username, email, signup_date, city];
+  const values = [username, email, city];
 
   const [result] = await pool.query(query, values);
 

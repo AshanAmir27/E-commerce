@@ -1,5 +1,5 @@
 import AdminSidebar from "@/components/ui/AdminSidebar"
-
+import AdminTopbar from "@/components/ui/AdminTopbar"
 export default function AdminLayout({ 
     children 
 }: { 
@@ -7,6 +7,7 @@ export default function AdminLayout({
 }) {
     return (
         <>
+            <AdminTopbar/>
             <AdminSidebar />
             <main>{children}</main>
         </>
