@@ -7,14 +7,14 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside style={{ width: "200px", marginTop: '-20px'  }}>
-      <h3>Admin Dashboard</h3>
+    <aside style={{ width: "220px", marginTop: '-20px' }} className="bg-white p-4 rounded-md py-10">
+      <h3 className="text-xl font-bold text-black mb-4">Dashoard </h3>
       <ul>
         <li>
           <Link
             href="/admin/customers"
             style={{
-              color: pathname === "/admin/customers" ? "red" : "white",
+              color: pathname === "/admin/customers" ? "blue" : "black",
             }}
           >
             Customers
@@ -25,7 +25,7 @@ export default function AdminSidebar() {
           <Link
             href="/admin/orders"
             style={{
-              color: pathname === "/admin/orders" ? "red" : "white",
+              color: pathname === "/admin/orders" ? "blue" : "black",
             }}
           >
             Orders
@@ -36,7 +36,7 @@ export default function AdminSidebar() {
           <Link
             href="/admin/products"
             style={{
-              color: pathname === "/admin/products" ? "red" : "white",
+              color: pathname === "/admin/products" ? "blue" : "black",
             }}
           >
             Products

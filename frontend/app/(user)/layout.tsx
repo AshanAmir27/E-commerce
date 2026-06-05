@@ -8,7 +8,9 @@ export default function UserLayout({
   return (
     <>
       <UserNav />
-      <main>{children}</main>
+      <main className="flex-1 overflow-auto p-6 bg-gray-100 ">
+        {children}
+      </main>
     </>
   );
 }

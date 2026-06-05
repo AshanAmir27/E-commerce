@@ -1,3 +1,3 @@
-export default function Admin(){
-    return <h1>helloo</h1>
+export default function Admin() {
+    return <h1 className="text-2xl font-bold text-black">Content</h1>
 }

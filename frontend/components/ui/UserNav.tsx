@@ -7,22 +7,22 @@ export default function UserNav() {
     const pathname = usePathname();
 
     return (
-        <nav>
+        <nav className="bg-white p-4 py-5 text-center flex justify-center items-center gap-2">
             <Link
                 href="/products"
-                style={{ color: pathname === "/products" ? "red" : "white" }}
+                style={{ color: pathname === "/products" ? "blue" : "black" }}
             >
                 Products
             </Link> {" "}
-            | {" "}
+            <span>|</span> {" "}
             <Link href="/customers"
-                style={{ color: pathname === "/customers" ? "red" : "white" }}
+                style={{ color: pathname === "/customers" ? "blue" : "black" }}
             >
                 Customers
             </Link> {" "}
-            | {" "}
+            <span>|</span> {" "}
             <Link href="/admin"
-                style={{ color: pathname === '/admin' ? "red" : "white" }}>
+                style={{ color: pathname === '/admin' ? "blue" : "black" }}>
                 Admin
             </Link>
         </nav>
