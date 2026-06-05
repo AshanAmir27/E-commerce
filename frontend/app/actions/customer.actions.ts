@@ -1,6 +1,7 @@
 "use server";
 
 const baseURL = process.env.API_URL;
+import { revalidatePath } from "next/cache";
 
 export async function createCustomer(formData: FormData) {
   const username = formData.get("username");
@@ -24,6 +25,5 @@ export async function createCustomer(formData: FormData) {
     throw new Error("Failed to create customer");
   }
 
-  const data = await response.json();
-  console.log(data)
+  revalidatePath("/admin/customers");
 }

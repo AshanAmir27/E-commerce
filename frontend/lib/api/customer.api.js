@@ -1,7 +1,13 @@
 const baseURL = process.env.API_URL;
 
-export const fetchCustomers = async () => {
-    const res = await fetch(`${baseURL}/customers`,{
+export const fetchCustomers = async ({ page = 0, limit = 10}) => {
+
+    const params = new URLSearchParams({
+        page: String(page),
+        limit: String(limit),
+    });
+
+    const res = await fetch(`${baseURL}/customers/get-customer-by-filter?${params}`,{
         method: "GET",
         headers: {
             "Content-Type": "application/json",

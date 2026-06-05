@@ -4,3 +4,7 @@ export type Customer = {
     email: string,
     city: string
 };
+
+export type Pagination = {
+    searchParams: Promise<{page?:string}>
+}

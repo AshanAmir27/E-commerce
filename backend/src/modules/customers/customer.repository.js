@@ -1,7 +1,7 @@
 import pool from "../../core/database/index.js";
 
 const getCustomers = async () => {
-  const [rows] = await pool.query("SELECT * FROM customers limit 3");
+  const [rows] = await pool.query("SELECT * FROM customers");
   return rows;
 };
 

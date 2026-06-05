@@ -7,42 +7,33 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside style={{ width: "220px", marginTop: '-20px' }} className="bg-white p-4 rounded-md py-10">
-      <h3 className="text-xl font-bold text-black mb-4">Dashoard </h3>
-      <ul>
-        <li>
-          <Link
-            href="/admin/customers"
-            style={{
-              color: pathname === "/admin/customers" ? "blue" : "black",
-            }}
-          >
-            Customers
-          </Link>
-        </li>
+    <div className="p-4">
+      <h3 className="text-xl font-bold mb-6 text-black">
+        Dashboard
+      </h3>
 
-        <li>
-          <Link
-            href="/admin/orders"
-            style={{
-              color: pathname === "/admin/orders" ? "blue" : "black",
-            }}
-          >
-            Orders
-          </Link>
-        </li>
+      <nav className="flex flex-col gap-3">
+        <Link
+          href="/admin/customers"
+          className={pathname === "/admin/customers" ? "text-blue-600 font-semibold" : "text-black"}
+        >
+          Customers
+        </Link>
 
-        <li>
-          <Link
-            href="/admin/products"
-            style={{
-              color: pathname === "/admin/products" ? "blue" : "black",
-            }}
-          >
-            Products
-          </Link>
-        </li>
-      </ul>
-    </aside>
+        <Link
+          href="/admin/orders"
+          className={pathname === "/admin/orders" ? "text-blue-600 font-semibold" : "text-black"}
+        >
+          Orders
+        </Link>
+
+        <Link
+          href="/admin/products"
+          className={pathname === "/admin/products" ? "text-blue-600 font-semibold" : "text-black"}
+        >
+          Products
+        </Link>
+      </nav>
+    </div>
   );
 }
