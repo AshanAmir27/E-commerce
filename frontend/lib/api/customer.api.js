@@ -1,6 +1,6 @@
 const baseURL = process.env.API_URL;
 
-export const fetchCustomers = async ({ page = 0, limit = 10}) => {
+export const fetchCustomers = async ({ page = 1, limit = 10}) => {
 
     const params = new URLSearchParams({
         page: String(page),

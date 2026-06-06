@@ -15,12 +15,6 @@ export default function UserNav() {
                 Products
             </Link> {" "}
             <span>|</span> {" "}
-            <Link href="/customers"
-                style={{ color: pathname === "/customers" ? "blue" : "black" }}
-            >
-                Customers
-            </Link> {" "}
-            <span>|</span> {" "}
             <Link href="/admin"
                 style={{ color: pathname === '/admin' ? "blue" : "black" }}>
                 Admin
