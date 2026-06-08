@@ -13,11 +13,21 @@ export default function AdminSidebar() {
       </h3>
 
       <nav className="flex flex-col gap-1">
+      <Link
+          href="/admin"
+          className={`rounded-lg px-3 py-2 transition ${
+            pathname === "/admin"
+              ? "bg-[#12131A] text-gray-300 font-bold"
+              : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+          }`}
+        >
+          Home
+        </Link>
         <Link
           href="/admin/customers"
           className={`rounded-lg px-3 py-2 transition ${
             pathname === "/admin/customers"
-              ? "bg-zinc-800 text-blue-400 font-semibold"
+              ? "bg-zinc-800 text-gray-300 font-semibold"
               : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
           }`}
         >
@@ -28,7 +38,7 @@ export default function AdminSidebar() {
           href="/admin/orders"
           className={`rounded-lg px-3 py-2 transition ${
             pathname === "/admin/orders"
-              ? "bg-zinc-800 text-blue-400 font-semibold"
+              ? "bg-zinc-800 text-gray-300 font-semibold"
               : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
           }`}
         >
@@ -39,7 +49,7 @@ export default function AdminSidebar() {
           href="/admin/products"
           className={`rounded-lg px-3 py-2 transition ${
             pathname === "/admin/products"
-              ? "bg-zinc-800 text-blue-400 font-semibold"
+              ? "bg-zinc-800 text-gray-300 font-semibold"
               : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
           }`}
         >
