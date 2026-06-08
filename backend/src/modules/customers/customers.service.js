@@ -32,7 +32,7 @@ export const getCustomerById = async (id) => {
   return result;
 }
 
-export const getCustomersByFilter = async ({ city, page, limit }) => {
+export const getCustomersByFilter = async ({ search, page, limit }) => {
   if (page < 1 || limit < 1) {
     throw new Error("Invalid pagination values");
   }
@@ -40,7 +40,7 @@ export const getCustomersByFilter = async ({ city, page, limit }) => {
   const offset = (page - 1) * limit;
 
   return await userRepository.getCustomersByFilter({
-    city,
+    search,
     limit,
     offset
   });

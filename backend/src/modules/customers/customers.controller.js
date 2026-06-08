@@ -46,11 +46,11 @@ export const getCustomerById = async (req, res) => {
 
 export const getCustomersByFilter = async (req, res) => {
 
-  const { city, page = 1, limit = 10 } = req.query;
+  const { search, page = 1, limit = 10 } = req.query;
 
   try {
     const data = await customersService.getCustomersByFilter({
-      city,
+      search,
       page: Number(page),
       limit: Number(limit)
     });

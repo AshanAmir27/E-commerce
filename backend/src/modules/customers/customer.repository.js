@@ -28,15 +28,24 @@ const getCustomerById = async (id) => {
   return result;
 }
 
-const getCustomersByFilter = async ({ city, limit, offset }) => {
+const getCustomersByFilter = async ({ search, limit, offset }) => {
    let query = `SELECT * FROM customers`;
   let values = [];
 
   // Filter
-  if (city) {
-    query += ` WHERE city = ?`;
-    values.push(city);
-  }
+  if (search) {
+  query += `
+    WHERE username LIKE ?
+    OR email LIKE ?
+    OR city LIKE ?
+  `;
+
+  values.push(
+    `%${search}%`,
+    `%${search}%`,
+    `%${search}%`
+  );
+}
 
   // Pagination
   query += ` LIMIT ? OFFSET ?`;
@@ -48,9 +57,9 @@ const getCustomersByFilter = async ({ city, limit, offset }) => {
   let countQuery = `SELECT COUNT(*) as total FROM customers`;
   let countValues = [];
 
-  if (city) {
+  if (search) {
     countQuery += ` WHERE city = ?`;
-    countValues.push(city);
+    countValues.push(search);
   }
 
   const [[{ total }]] = await pool.query(countQuery, countValues);
