@@ -9,20 +9,29 @@ export default function Pagination({
   totalPages: number;
   href: string;
 }) {
+  const pageHref = (targetPage: number) =>
+    href.includes("page=") ? `${href}${targetPage}` : `${href}?page=${targetPage}`;
+
   return (
-    <div className="flex gap-2 mt-4 justify-center items-center">
+    <div className="mt-4 flex items-center justify-center gap-4">
       {page > 1 && (
-        <Link href={`${href}?page=${page - 1}`} className="text-blue-500">
+        <Link
+          href={pageHref(page - 1)}
+          className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-sm text-blue-400 transition hover:bg-zinc-700"
+        >
           Previous
         </Link>
       )}
 
-      <span className="text-black">
+      <span className="text-sm text-zinc-400">
         Page {page} of {totalPages}
       </span>
 
       {page < totalPages && (
-        <Link href={`${href}?page=${page + 1}`} className="text-blue-500">
+        <Link
+          href={pageHref(page + 1)}
+          className="rounded-md border border-zinc-700 bg-zinc-800 px-3 py-1.5 text-sm text-blue-400 transition hover:bg-zinc-700"
+        >
           Next
         </Link>
       )}

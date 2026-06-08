@@ -1,3 +1,3 @@
 export default function(){
-    return <h1 className="text-2xl font-bold text-black">Orders</h1>
+    return <h1 className="text-2xl font-bold text-zinc-100">Orders</h1>
 }

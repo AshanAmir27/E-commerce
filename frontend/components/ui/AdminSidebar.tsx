@@ -8,28 +8,40 @@ export default function AdminSidebar() {
 
   return (
     <div className="p-4">
-      <h3 className="text-xl font-bold mb-6 text-black">
+      <h3 className="text-xl font-bold mb-6 text-zinc-100">
         Dashboard
       </h3>
 
-      <nav className="flex flex-col gap-3">
+      <nav className="flex flex-col gap-1">
         <Link
           href="/admin/customers"
-          className={pathname === "/admin/customers" ? "text-blue-600 font-semibold" : "text-black"}
+          className={`rounded-lg px-3 py-2 transition ${
+            pathname === "/admin/customers"
+              ? "bg-zinc-800 text-blue-400 font-semibold"
+              : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+          }`}
         >
           Customers
         </Link>
 
         <Link
           href="/admin/orders"
-          className={pathname === "/admin/orders" ? "text-blue-600 font-semibold" : "text-black"}
+          className={`rounded-lg px-3 py-2 transition ${
+            pathname === "/admin/orders"
+              ? "bg-zinc-800 text-blue-400 font-semibold"
+              : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+          }`}
         >
           Orders
         </Link>
 
         <Link
           href="/admin/products"
-          className={pathname === "/admin/products" ? "text-blue-600 font-semibold" : "text-black"}
+          className={`rounded-lg px-3 py-2 transition ${
+            pathname === "/admin/products"
+              ? "bg-zinc-800 text-blue-400 font-semibold"
+              : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+          }`}
         >
           Products
         </Link>

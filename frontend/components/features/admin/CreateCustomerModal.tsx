@@ -11,7 +11,7 @@ export default function CreateCustomerModal() {
       {/* Trigger */}
       <button
         onClick={() => setOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md shadow-sm transition cursor-pointer"
+        className="cursor-pointer rounded-md bg-blue-600 px-4 py-2 text-white shadow-sm transition hover:bg-blue-500"
       >
         + Create Customer
       </button>
@@ -27,63 +27,55 @@ export default function CreateCustomerModal() {
           />
 
           {/* Modal Box */}
-          <div className="relative bg-white w-full max-w-md rounded-xl shadow-xl p-6">
-            
-            {/* Header */}
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="relative w-full max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-6 shadow-xl shadow-black/40">
+            <h2 className="mb-4 text-xl font-semibold text-zinc-100">
               Create Customer
             </h2>
 
-            {/* Form */}
             <form action={createCustomer} className="space-y-4">
-
               <div>
-                <label className="text-sm text-gray-600">Username</label>
+                <label className="text-sm text-zinc-400">Username</label>
                 <input
                   name="username"
                   placeholder="Enter username"
-                  className="w-full mt-1 border rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full rounded-md border border-zinc-700 bg-zinc-800 p-2 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Email</label>
+                <label className="text-sm text-zinc-400">Email</label>
                 <input
                   name="email"
                   placeholder="Enter email"
-                  className="w-full mt-1 border rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full rounded-md border border-zinc-700 bg-zinc-800 p-2 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">City</label>
+                <label className="text-sm text-zinc-400">City</label>
                 <input
                   name="city"
                   placeholder="Enter city"
-                  className="w-full mt-1 border rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 w-full rounded-md border border-zinc-700 bg-zinc-800 p-2 text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              {/* Actions */}
               <div className="flex justify-end gap-3 pt-2">
-                
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="px-4 py-2 rounded-md border text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  className="cursor-pointer rounded-md border border-zinc-700 px-4 py-2 text-zinc-300 transition hover:bg-zinc-800"
                 >
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white cursor-pointer"
+                  className="cursor-pointer rounded-md bg-green-600 px-4 py-2 text-white transition hover:bg-green-500"
                 >
                   Save
                 </button>
-
               </div>
-
             </form>
           </div>
         </div>
