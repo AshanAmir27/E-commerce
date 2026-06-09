@@ -1,5 +1,5 @@
 // modules/orders/orders.transaction.js
-import pool from "../../core/database/index";
+import pool from "../../core/database/index.js";
 
 export const createOrderTransaction = async (payload) => {
   const connection = await pool.getConnection();

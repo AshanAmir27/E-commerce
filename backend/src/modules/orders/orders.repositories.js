@@ -1,23 +1,50 @@
-// modules/orders/orders.repository.js
-import pool from "../../core/database/index";
+import pool from "../../core/database/index.js";
 
-export const getOrders = async ({ status, page = 1, limit = 10 }) => {
+export const getOrders = async ({ status, page = 1, limit = 10, search = "" }) => {
   const offset = (page - 1) * limit;
 
-  let query = "SELECT * FROM orders";
-  let values = [];
+  let query =
+    "SELECT o.*, c.username FROM orders o JOIN customers c ON o.customer_id = c.customer_id";
+  const conditions = [];
+  const values = [];
 
   if (status) {
-    query += " WHERE status = ?";
+    conditions.push("o.status = ?");
     values.push(status);
   }
 
-  query += " LIMIT ? OFFSET ?";
-  values.push(limit, offset);
+  if (search) {
+    conditions.push("c.username LIKE ?");
+    values.push(`%${search}%`);
+  }
+
+  if (conditions.length) {
+    query += ` WHERE ${conditions.join(" AND ")}`;
+  }
+
+  query += " ORDER BY o.order_date DESC LIMIT ? OFFSET ?";
+  values.push(Number(limit), Number(offset));
 
   const [rows] = await pool.query(query, values);
 
-  return rows;
+  let countQuery =
+    "SELECT COUNT(*) AS total FROM orders o JOIN customers c ON o.customer_id = c.customer_id";
+
+  if (conditions.length) {
+    countQuery += ` WHERE ${conditions.join(" AND ")}`;
+  }
+
+  const [[{ total }]] = await pool.query(countQuery, values.slice(0, -2));
+
+  return {
+    data: rows,
+    pagination: {
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      totalPages: Math.ceil(total / limit) || 1,
+    },
+  };
 };
 
 export const getOrderById = async (id) => {
@@ -41,13 +68,11 @@ export const cancelOrder = async (id) => {
   try {
     await connection.beginTransaction();
 
-    // Get order items
     const [items] = await connection.query(
       "SELECT * FROM order_items WHERE order_id = ?",
       [id]
     );
 
-    // Restore stock
     for (const item of items) {
       await connection.query(
         `UPDATE products 
@@ -57,7 +82,6 @@ export const cancelOrder = async (id) => {
       );
     }
 
-    // Update order
     await connection.query(
       "UPDATE orders SET status = 'cancelled' WHERE order_id = ?",
       [id]
@@ -66,11 +90,9 @@ export const cancelOrder = async (id) => {
     await connection.commit();
 
     return { order_id: id, status: "cancelled" };
-
   } catch (error) {
     await connection.rollback();
     throw error;
-
   } finally {
     connection.release();
   }

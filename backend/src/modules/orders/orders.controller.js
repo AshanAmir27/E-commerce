@@ -22,10 +22,20 @@ export const createOrder = async (req, res) => {
 
 export const getOrders = async (req, res) => {
   try {
-    const data = await ordersService.getOrders(req.query);
+    const { page = 1, limit = 10, search = "", status } = req.query;
+    const result = await ordersService.getOrders({
+      page: Number(page),
+      limit: Number(limit),
+      search,
+      status,
+    });
 
-    return successResponse(res, { data });
-
+    return res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully",
+      data: result.data,
+      pagination: result.pagination,
+    });
   } catch (error) {
     return errorResponse(res, {
       message: error.message,
