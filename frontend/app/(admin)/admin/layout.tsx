@@ -14,7 +14,7 @@ export default function AdminLayout({
 
             <div className="flex min-w-0 flex-1 flex-col">
                 <AdminTopbar />
-                <div className="flex-1 overflow-y-auto bg-zinc-950 p-6">
+                <div className="scrollbar-dark flex-1 overflow-y-auto bg-zinc-950 p-6">
                     <main>{children}</main>
                 </div>
             </div>

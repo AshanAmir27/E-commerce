@@ -2,6 +2,7 @@ import { Customer } from "@/app/types/types";
 import { getCustomers } from "@/services/customer.service";
 import CreateCustomerModal from "@/components/features/admin/CreateCustomerModal";
 import PaginationComponent from "@/components/features/admin/pagination";
+import CustomerSearch from "@/components/features/admin/customerSearch";
 
 export default async function CustomersPage({ searchParams }: any) {
   const params = await searchParams;
@@ -19,7 +20,7 @@ export default async function CustomersPage({ searchParams }: any) {
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-zinc-100">Customers</h1>
+        <CustomerSearch />
         <CreateCustomerModal />
       </div>
 

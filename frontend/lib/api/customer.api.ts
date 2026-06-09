@@ -28,34 +28,3 @@ export const fetchCustomers = async ({ page = 1, limit = 10, search = "" }) => {
     return res.json();
 
 }
-
-export const fetchTotalCutomers = async () => {
-
-    const res = await fetch(`${baseURL}/analytics/total-customers`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        }
-    });
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.message || "Failed to fetch total number of customers")
-    }
-
-    return res.json()
-}
-
-export const fetchTotalProducts = async () => {
-    const res = await fetch(`${baseURL}/analytics/total-products`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-    if(!res.ok){
-        const error = await res.json();
-        throw new Error (error.messae) || "Failed to fetch total products"
-    }
-
-    return res.json();
-}

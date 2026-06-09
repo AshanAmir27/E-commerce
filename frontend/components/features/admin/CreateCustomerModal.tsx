@@ -2,6 +2,7 @@
 
 import { useState, useActionState } from "react";
 import { createCustomer } from "@/app/actions/customer.actions";
+import { UserRoundPlus } from "lucide-react";
 
 const initialState = {
   success: false,
@@ -52,9 +53,10 @@ export default function CreateCustomerModal() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="cursor-pointer rounded-md bg-gradient-to-r from-[#BFB5FD] via-[#B6A7FF] to-[#AA9DF8] px-4 py-2 text-black shadow-sm"
+        className="cursor-pointer rounded-md bg-[#12131A] px-4 py-2 text-gray-300 shadow-sm flex items-center gap-2"
       >
-        + Create Customer
+        <UserRoundPlus className="w-5 h-5" />
+        Create Customer
       </button>
 
       {open && (

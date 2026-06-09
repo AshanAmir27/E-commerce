@@ -1,44 +1,47 @@
-import { fetchtotalCustomer,fetchTotalProduct } from "@/services/customer.service";
+import { fetchTotalCustomer, fetchTotalProduct, fetchTotalOrders, fetchRevenueTrend } from "@/services/analytics.service";
+import KpiCard from "@/components/ui/KpiCard";
+import { Package, ShoppingCart, Users, LineChart } from "lucide-react";
+import RevenueChart from "@/components/charts/RevenueChart";
 
 export default async function Admin() {
-    const { totalCustomers } = await fetchtotalCustomer();
-    const { totalProducts } = await fetchTotalProduct();
+  const { totalCustomers } = await fetchTotalCustomer();
+  const { totalProducts } = await fetchTotalProduct();
+  const { totalOrders } = await fetchTotalOrders();
+  const { revenue } = await fetchRevenueTrend();
+  return (
+    <>
 
-    return (
-        <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                <div className="w-72 rounded-2xl bg-white p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-                        Total Customers
-                    </p>
-
-                    <div className="mt-3 flex items-end gap-2">
-                        <h1 className="text-4xl font-bold text-gray-900">
-                            {totalCustomers}
-                        </h1>
-                    </div>
-
-                    <p className="mt-2 text-sm text-gray-400">
-                        Registered customers in the system
-                    </p>
-                </div>
-                <div className="w-72 rounded-2xl bg-white p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-                        Total Products
-                    </p>
-
-                    <div className="mt-3 flex items-end gap-2">
-                        <h1 className="text-4xl font-bold text-gray-900">
-                            {totalProducts}
-                        </h1>
-                    </div>
-
-                    <p className="mt-2 text-sm text-gray-400">
-                        Registered products in the system
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <KpiCard
+          label="Total Customers"
+          value={totalCustomers}
+          description="Registered customers in the system"
+          icon={Users}
+          iconClassName="bg-blue-500/15 text-blue-400"
+        />
+        <KpiCard
+          label="Total Products"
+          value={totalProducts}
+          description="Products in the catalog"
+          icon={Package}
+          iconClassName="bg-emerald-500/15 text-emerald-400"
+        />
+        <KpiCard
+          label="Total Orders"
+          value={totalOrders}
+          description="Orders in the system"
+          icon={ShoppingCart}
+          iconClassName="bg-yellow-500/15 text-yellow-400"
+        />
+        <KpiCard
+          label="Revenue"
+          value={`$${Number(revenue ?? 0).toLocaleString()}`}
+          description="Revenue in the system"
+          icon={LineChart}
+          iconClassName="bg-green-500/15 text-green-400"
+        />
+      </div>
+      <RevenueChart />
+    </>
+  );
 }
