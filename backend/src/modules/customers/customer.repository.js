@@ -1,68 +1,66 @@
 import pool from "../../core/database/index.js";
 
-const getCustomers = async () => {
-  const [rows] = await pool.query("SELECT * FROM customers");
-  return rows;
-};
-
-const createCustomer = async (data) => {
-  const { username, email, city } = data;
-
-  const query = `INSERT INTO customers (username,email,signup_date, city)
-    VALUES (?,?,curdate(),?)
+const getCustomers = async ({
+  search,
+  limit,
+  offset,
+}) => {
+  let query = `
+    SELECT *
+    FROM customers
   `;
 
-  const values = [username, email, city];
-
-  const [result] = await pool.query(query, values);
-
-  return {
-    customer_id: result.insertId,
-    ...data
-  };
-}
-
-const getCustomerById = async (id) => {
-  const query = `select * from customers where customer_id = ?`;
-  const [result] = await pool.query(query, [id]);
-  return result;
-}
-
-const getCustomersByFilter = async ({ search, limit, offset }) => {
-   let query = `SELECT * FROM customers`;
   let values = [];
 
-  // Filter
   if (search) {
+    query += `
+      WHERE username LIKE ?
+      OR email LIKE ?
+      OR city LIKE ?
+    `;
+
+    values.push(
+      `%${search}%`,
+      `%${search}%`,
+      `%${search}%`
+    );
+  }
+
   query += `
-    WHERE username LIKE ?
-    OR email LIKE ?
-    OR city LIKE ?
+    ORDER BY customer_id DESC
+    LIMIT ?
+    OFFSET ?
   `;
 
-  values.push(
-    `%${search}%`,
-    `%${search}%`,
-    `%${search}%`
-  );
-}
-
-  // Pagination
-  query += ` LIMIT ? OFFSET ?`;
   values.push(limit, offset);
 
   const [rows] = await pool.query(query, values);
 
-  // Get total count (for pagination info)
-  let countQuery = `SELECT COUNT(*) as total FROM customers`;
+  let countQuery = `
+    SELECT COUNT(*) AS total
+    FROM customers
+  `;
+
   let countValues = [];
 
   if (search) {
-    countQuery += ` WHERE city = ?`;
-    countValues.push(search);
+    countQuery += `
+      WHERE username LIKE ?
+      OR email LIKE ?
+      OR city LIKE ?
+    `;
+
+    countValues.push(
+      `%${search}%`,
+      `%${search}%`,
+      `%${search}%`
+    );
   }
 
-  const [[{ total }]] = await pool.query(countQuery, countValues);
+  const [[{ total }]] = await pool.query(
+    countQuery,
+    countValues
+  );
 
   return {
     data: rows,
@@ -70,14 +68,63 @@ const getCustomersByFilter = async ({ search, limit, offset }) => {
       total,
       page: Math.floor(offset / limit) + 1,
       limit,
-      totalPages: Math.ceil(total / limit)
-    }
+      totalPages: Math.ceil(total / limit),
+    },
   };
+};
+
+const createCustomer = async (data) => {
+  const {
+    username,
+    email,
+    city,
+  } = data;
+
+  const query = `
+    INSERT INTO customers
+    (
+      username,
+      email,
+      city,
+      signup_date
+    )
+    VALUES
+    (
+      ?,
+      ?,
+      ?,
+      CURDATE()
+    )
+  `;
+
+  const [result] = await pool.query(query, [
+    username,
+    email,
+    city,
+  ]);
+
+  return {
+    customer_id: result.insertId,
+    username,
+    email,
+    city,
+  };
+};
+
+const getCustomerById = async (id) => {
+  const query = `
+    SELECT *
+    FROM customers
+    WHERE customer_id = ?
+  `;
+
+  const [rows] = await pool.query(query, [id]);
+
+  return rows[0] || null;
 };
 
 export default {
   getCustomers,
   createCustomer,
   getCustomerById,
-  getCustomersByFilter
 };

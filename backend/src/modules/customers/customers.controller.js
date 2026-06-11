@@ -1,70 +1,61 @@
 import * as customersService from "./customers.service.js";
-import { successResponse, errorResponse } from "../../core/response/responseHandler.js";
+import {
+  successResponse,
+  errorResponse,
+} from "../../core/response/responseHandler.js";
 
 export const getCustomers = async (req, res) => {
   try {
-    const data = await customersService.getCustomers();
-    return successResponse(res, { data });
+    const { search = "", page = 1, limit = 10 } = req.query;
+
+    const data = await customersService.getCustomers({
+      search,
+      page: Number(page),
+      limit: Number(limit),
+    });
+
+    return successResponse(res, {
+      data,
+      message: "Customers fetched successfully",
+    });
   } catch (error) {
     return errorResponse(res, {
       message: error.message,
-      code: error.code || 500
-    })
+      code: error.code || 500,
+    });
   }
 };
 
 export const createCustomer = async (req, res) => {
   try {
     const data = await customersService.createCustomer(req.body);
+
     return successResponse(res, {
       data,
-      message: 'Customer created Successfully',
-      code: 201
-    })
+      message: "Customer created successfully",
+      code: 201,
+    });
   } catch (error) {
     return errorResponse(res, {
       message: error.message,
-      code: error.code || 500
-    })
-
+      code: error.code || 500,
+    });
   }
-}
+};
 
 export const getCustomerById = async (req, res) => {
-  const id = req.params.id
-  console.log(id)
   try {
-    const data = await customersService.getCustomerById(id);
-    return successResponse(res, { data })
+    const customer = await customersService.getCustomerById(
+      Number(req.params.id)
+    );
+
+    return successResponse(res, {
+      data: customer,
+    });
   } catch (error) {
     return errorResponse(res, {
       message: error.message,
-      code: error.code || 500
-    })
-  }
-}
-
-export const getCustomersByFilter = async (req, res) => {
-
-  const { search, page = 1, limit = 10 } = req.query;
-
-  try {
-    const data = await customersService.getCustomersByFilter({
-      search,
-      page: Number(page),
-      limit: Number(limit)
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "Customers fetched successfully",
-      ...data
-    });
-  } catch (error) {
-    return errorResponse(res, {
-      success: false,
-      message: error.message
+      code: error.code || 500,
     });
   }
-}
-
+};

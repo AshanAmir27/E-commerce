@@ -1,53 +1,6 @@
 import * as analyticsService from './analytics.service.js'
 import { successResponse, errorResponse } from '../../core/response/responseHandler.js'
 
-export const getTotalCustomers = async (req, res)=> {
-    try {
-        const result = await analyticsService.getTotalCustomers();
-        return successResponse(res, {
-            data: result,
-            message: "Total customers fetched successfully",
-            code: 200
-        })
-    } catch (error) {
-        return errorResponse(res, {
-            message: error.message,
-            code: 500
-        })
-    }
-}
-
-export const getTotalProducts = async (req, res)=> {
-    try {
-        const result = await analyticsService.getTotalProducts();
-        return successResponse(res, {
-            data: result,
-            message: "Total products fetched successfully",
-            code: 200
-        })
-    } catch (error) {
-        return errorResponse(res, {
-            message: error.message,
-            code: 500
-        })
-    }
-}
-
-export const getTotalOrders = async ( req, res ) => {
-    try {
-        const result = await analyticsService.getTotalOrders();
-        return successResponse(res, {
-            data: result,
-            message: "Total orders fetched successfully",
-            code: 200
-        })
-    } catch (error) {
-        return errorResponse(res, {
-            message: error.message,
-            code: 500
-        })
-    }
-}
 
 export const getRevenueTrend = async (req, res) => {
     try {
@@ -55,6 +8,22 @@ export const getRevenueTrend = async (req, res) => {
         return successResponse(res, {
             data: result,
             message: "Revenue trend fetched successfully",
+            code: 200
+        })
+    } catch (error) {
+        return errorResponse(res, {
+            message: error.message,
+            code: 500
+        })
+    }
+}
+
+export const getMetrics = async (req, res ) => {
+    try {
+        const result = await analyticsService.getMetrics();
+        return successResponse(res, {
+            data: result,
+            message: "Metrics fetched successfully",
             code: 200
         })
     } catch (error) {
@@ -82,3 +51,34 @@ export const getRevenueByTime = async (req, res) => {
     }
 }
 
+export const getCustomersByCity = async (req, res) => {
+    try {
+        const result = await analyticsService.getCustomersByCity();
+        return res.status(200).json({
+            success: true,
+            message: "Customers by city fetched successfully",
+            data: result.data
+        })
+    } catch (error) {
+        return errorResponse(res, {
+            message: error.message,
+            code: 500
+        })
+    }
+}
+
+export const getRecentOrders = async (req, res) => {
+    try {
+        const result = await analyticsService.getRecentOrders();
+        return res.status(200).json({
+            success: true,
+            message: "Recent orders fetched successfully",
+            data: result.data
+        })
+    } catch (error) {
+        return errorResponse(res, {
+            message: error.message,
+            code: 500
+        })
+    }
+}

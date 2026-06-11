@@ -1,13 +1,12 @@
-import { fetchTotalCustomer, fetchTotalProduct, fetchTotalOrders, fetchRevenueTrend } from "@/services/analytics.service";
+import { fetchMetrics, fetchCustomersByCity } from "@/services/analytics.service";
 import KpiCard from "@/components/ui/KpiCard";
 import { Package, ShoppingCart, Users, LineChart } from "lucide-react";
 import RevenueChart from "@/components/charts/RevenueChart";
+import CustomerChart from "@/components/charts/customerChart";
 
 export default async function Admin() {
-  const { totalCustomers } = await fetchTotalCustomer();
-  const { totalProducts } = await fetchTotalProduct();
-  const { totalOrders } = await fetchTotalOrders();
-  const { revenue } = await fetchRevenueTrend();
+  const { totalCustomers, totalProducts, totalOrders, totalRevenue } = await fetchMetrics();
+  const { data } = await fetchCustomersByCity();
   return (
     <>
 
@@ -35,13 +34,16 @@ export default async function Admin() {
         />
         <KpiCard
           label="Revenue"
-          value={`$${Number(revenue ?? 0).toLocaleString()}`}
+          value={`$${Number(totalRevenue ?? 0).toLocaleString()}`}
           description="Revenue in the system"
           icon={LineChart}
           iconClassName="bg-green-500/15 text-green-400"
         />
       </div>
-      <RevenueChart />
+      <div className="mt-6 flex flex-wrap gap-6">
+        <RevenueChart />
+        <CustomerChart data={data} />
+      </div>
     </>
   );
 }

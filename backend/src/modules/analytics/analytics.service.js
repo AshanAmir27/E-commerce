@@ -1,30 +1,19 @@
 import * as analyticsRepository from './analytics.repository.js';
 
-export const getTotalCustomers = async () => {
-    const repoResult = await analyticsRepository.getTotalCustomers();
-    return {
-        totalCustomer: repoResult.total_customers
-    };
-}
-
-export const getTotalProducts = async () => {
-    const repoResult = await analyticsRepository.getTotalProducts();
-    return {
-        totalProducts : repoResult.total_products
-    };
-}
-
-export const getTotalOrders = async () => {
-    const repoResult = await analyticsRepository.getTotalOrders();
-    return {
-        totalOrders : repoResult.total_orders
-    };
-}
-
 export const getRevenueTrend = async () => {
     const repoResult = await analyticsRepository.getRevenueTrend();
     return {
         revenue: repoResult.revenue
+    };
+}
+
+export const getMetrics = async () => {
+    const repoResult = await analyticsRepository.getMetrics();
+    return {
+        totalCustomers: repoResult.total_customers,
+        totalProducts: repoResult.total_products,
+        totalOrders: repoResult.total_orders,
+        totalRevenue: repoResult.total_revenue
     };
 }
 
@@ -66,3 +55,24 @@ export const getRevenueByTime = async (period) => {
 
     return { period, points };
 };
+
+export const getCustomersByCity = async () => {
+    const repoResult = await analyticsRepository.getCustomersByCity();
+    return {
+        data: repoResult.map((row) => ({
+            city: row.city ?? "Unknown",
+            value: Number(row.value) || 0,
+        })),
+    };
+}   
+
+export const getRecentOrders = async () => {
+    const repoResult = await analyticsRepository.getRecentOrders();
+    return {
+        data: repoResult.map((row) => ({
+            order_id: row.order_id,
+            order_date: row.order_date,
+            total_amount: Number(row.total_amount) || 0,
+        })),
+    };
+}

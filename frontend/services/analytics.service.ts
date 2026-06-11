@@ -1,37 +1,27 @@
 "use server";
-import { fetchTotalCutomers, fetchTotalProducts, fetchTotalOrdersAPI, fetchRevenueTrendAPI, fetchRevenueByTimeAPI} from "../lib/api/analytics.api";
+import { fetchRevenueByTimeAPI, fetchMetricsAPI, fetchCustomersByCityAPI } from "../lib/api/analytics.api";
 
-export const fetchTotalCustomer = async () => {
-    const response = await fetchTotalCutomers();
+export const fetchMetrics = async () => {
+    const response = await fetchMetricsAPI();
     return {
-        totalCustomers: response.data.totalCustomer,
-    };
-}
-
-export const fetchTotalProduct = async () => {
-    const response = await fetchTotalProducts();
-    return {
-        totalProducts: response.data.totalProducts
+        totalCustomers: response.data.totalCustomers,
+        totalProducts: response.data.totalProducts,
+        totalOrders: response.data.totalOrders,
+        totalRevenue: response.data.totalRevenue
     }
 }
 
-export const fetchTotalOrders = async () => {
-    const response = await fetchTotalOrdersAPI();
-    return {
-        totalOrders: response.data.totalOrders
-    }
-}
-
-export const fetchRevenueTrend = async () => {
-    const response = await fetchRevenueTrendAPI();
-    return {
-        revenue: response.data.revenue
-    }
-}
 
 export const fetchRevenueByTime = async (period: string) => {
     const response = await fetchRevenueByTimeAPI(period);
     return {
         revenueByTime: response.data.points ?? [],
+    };
+};
+
+export const fetchCustomersByCity = async () => {
+    const response = await fetchCustomersByCityAPI();
+    return {
+        data: response.data,
     };
 };

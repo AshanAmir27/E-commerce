@@ -103,8 +103,8 @@ export default function RevenueChart() {
   }, [period]);
 
   return (
-    <div className="mt-4 h-[400px] w-[60%] rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-lg shadow-black/20">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mt-4 flex h-[420px] w-[60%] flex-col rounded-xl border border-zinc-800 bg-zinc-900 p-5 shadow-lg shadow-black/20">
+      <div className="mb-4 flex shrink-0 items-center justify-between">
         <h3 className="text-lg font-semibold text-zinc-300">Sales Overview</h3>
         <Dropdown
           value={period}
@@ -113,59 +113,61 @@ export default function RevenueChart() {
         />
       </div>
 
-      {isLoading ? (
-        <div className="flex h-[88%] items-center justify-center text-sm text-zinc-500">
-          Loading chart...
-        </div>
-      ) : timeSeriesData.length === 0 ? (
-        <div className="flex h-[88%] items-center justify-center text-sm text-zinc-500">
-          No revenue data for this period.
-        </div>
-      ) : (
-        <ResponsiveContainer width="100%" height="88%">
-          <LineChart
-            data={timeSeriesData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
-            <XAxis
-              dataKey="timestamp"
-              tickFormatter={(tick) => formatXAxisTick(tick, period)}
-              stroke={chartTheme.axis}
-              tick={{ fill: chartTheme.tick, fontSize: 12 }}
-            />
-            <YAxis
-              stroke={chartTheme.axis}
-              tick={{ fill: chartTheme.tick, fontSize: 12 }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: chartTheme.tooltipBg,
-                borderRadius: "8px",
-                borderColor: chartTheme.tooltipBorder,
-                borderWidth: 1,
-              }}
-              labelStyle={{ color: chartTheme.tooltipLabel }}
-              itemStyle={{ color: chartTheme.line }}
-              labelFormatter={(label) => formatTooltipLabel(String(label), period)}
-              formatter={(value) => [
-                `$${Number(value).toLocaleString()}`,
-                "Revenue",
-              ]}
-            />
-            <Legend wrapperStyle={{ color: chartTheme.legend }} />
-            <Line
-              name="Revenue"
-              type="monotone"
-              dataKey="value"
-              stroke={chartTheme.line}
-              strokeWidth={2.5}
-              activeDot={{ r: 6, fill: chartTheme.activeDot }}
-              dot={{ r: 4, fill: chartTheme.line, strokeWidth: 0 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      )}
+      <div className="min-h-0 flex-1">
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center text-sm text-zinc-500">
+            Loading chart...
+          </div>
+        ) : timeSeriesData.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-sm text-zinc-500">
+            No revenue data for this period.
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+            <LineChart
+              data={timeSeriesData}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.grid} />
+              <XAxis
+                dataKey="timestamp"
+                tickFormatter={(tick) => formatXAxisTick(tick, period)}
+                stroke={chartTheme.axis}
+                tick={{ fill: chartTheme.tick, fontSize: 12 }}
+              />
+              <YAxis
+                stroke={chartTheme.axis}
+                tick={{ fill: chartTheme.tick, fontSize: 12 }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: chartTheme.tooltipBg,
+                  borderRadius: "8px",
+                  borderColor: chartTheme.tooltipBorder,
+                  borderWidth: 1,
+                }}
+                labelStyle={{ color: chartTheme.tooltipLabel }}
+                itemStyle={{ color: chartTheme.line }}
+                labelFormatter={(label) => formatTooltipLabel(String(label), period)}
+                formatter={(value) => [
+                  `$${Number(value).toLocaleString()}`,
+                  "Revenue",
+                ]}
+              />
+              <Legend wrapperStyle={{ color: chartTheme.legend }} />
+              <Line
+                name="Revenue"
+                type="monotone"
+                dataKey="value"
+                stroke={chartTheme.line}
+                strokeWidth={2.5}
+                activeDot={{ r: 6, fill: chartTheme.activeDot }}
+                dot={{ r: 4, fill: chartTheme.line, strokeWidth: 0 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
+      </div>
     </div>
   );
 }
