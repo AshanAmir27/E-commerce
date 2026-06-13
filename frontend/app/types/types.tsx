@@ -15,6 +15,7 @@ export type KpiCardProps = {
     label: string;
     value: number | string;
     description: string;
+    growthPercentage: number;
     icon: LucideIcon;
     iconClassName?: string;
   };

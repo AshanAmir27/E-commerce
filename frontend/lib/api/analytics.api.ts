@@ -8,6 +8,7 @@ export const fetchMetricsAPI = async () => {
         }
     });
     const data = await res.json();
+    console.log(data);
     if(!res.ok){
         throw new Error(data.message ||"Failed to fetch metrics")
     }
@@ -38,6 +39,7 @@ export const fetchCustomersByCityAPI = async () => {
         }
     });
     const data = await res.json();
+
     if(!res.ok){
         throw new Error(data.message ||"Failed to fetch customers by city")
     }

@@ -4,10 +4,14 @@ import { fetchRevenueByTimeAPI, fetchMetricsAPI, fetchCustomersByCityAPI } from 
 export const fetchMetrics = async () => {
     const response = await fetchMetricsAPI();
     return {
-        totalCustomers: response.data.totalCustomers,
-        totalProducts: response.data.totalProducts,
-        totalOrders: response.data.totalOrders,
-        totalRevenue: response.data.totalRevenue
+        totalCustomers: response.data.customers.totalCustomers,
+        customerGrowthPercentage: response.data.customers.customerGrowthPercentage,
+        totalProducts: response.data.products.totalProducts,
+        productGrowthPercentage: response.data.products.productGrowthPercentage,
+        totalOrders: response.data.orders.totalOrders,
+        orderGrowthPercentage: response.data.orders.orderGrowthPercentage,
+        totalRevenue: response.data.revenue.totalRevenue,
+        revenueGrowthPercentage: response.data.revenue.revenueGrowthPercentage,
     }
 }
 

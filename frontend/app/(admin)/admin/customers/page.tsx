@@ -1,25 +1,26 @@
-import { Customer } from "@/app/types/types";
-import { getCustomers } from "@/services/customer.service";
-import CreateCustomerModal from "@/components/features/admin/CreateCustomerModal";
-import PaginationComponent from "@/components/features/admin/pagination";
-import CustomerSearch from "@/components/features/admin/customerSearch";
+// import { Customer } from "@/app/types/types";
+// import { getCustomers } from "@/services/customer.service";
+// import CreateCustomerModal from "@/components/features/admin/CreateCustomerModal";
+// import PaginationComponent from "@/components/features/admin/pagination";
+// import CustomerSearch from "@/components/features/admin/customerSearch";
 
 export default async function CustomersPage({ searchParams }: any) {
-  const params = await searchParams;
+  // const params = await searchParams;
 
-  const page = Number(params.page) || 1;
-  const search = params.search || "";
-  const limit = 10;
+  // const page = Number(params.page) || 1;
+  // const search = params.search || "";
+  // const limit = 10;
 
-  const { data, pagination } = await getCustomers({ page, limit, search });
+  // const { data, pagination } = await getCustomers({ page, limit, search });
 
-  const paginationHref = search
-    ? `/admin/customers?search=${encodeURIComponent(search)}&page=`
-    : "/admin/customers?page=";
+  // const paginationHref = search
+  //   ? `/admin/customers?search=${encodeURIComponent(search)}&page=`
+  //   : "/admin/customers?page=";
 
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="mx-auto max-w-8xl">
+      <h1 className="text-2xl font-bold text-zinc-100">Customers</h1>
+      {/* <div className="mb-6 flex items-center justify-between">
         <CustomerSearch />
         <CreateCustomerModal />
       </div>
@@ -48,13 +49,13 @@ export default async function CustomersPage({ searchParams }: any) {
       </div>
 
       {/* Pagination */}
-      <div className="mt-6 flex justify-center">
+      {/* <div className="mt-6 flex justify-center">
         <PaginationComponent
           page={page}
           totalPages={pagination.totalPages}
           href={paginationHref}
         />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -1,43 +1,44 @@
-import { Order as OrderType } from "@/app/types/types";
-import { getOrders } from "@/services/orders.service";
-import PaginationComponent from "@/components/features/admin/pagination";
-import OrderSearch from "@/components/features/admin/OrderSearch";
+// import { Order as OrderType } from "@/app/types/types";
+// import { getOrders } from "@/services/orders.service";
+// import PaginationComponent from "@/components/features/admin/pagination";
+// import OrderSearch from "@/components/features/admin/OrderSearch";
 
-function statusClassName(status: string) {
-  switch (status.toLowerCase()) {
-    case "completed":
-      return "bg-emerald-950 text-emerald-300";
-    case "pending":
-      return "bg-yellow-950 text-yellow-300";
-    case "cancelled":
-      return "bg-red-950 text-red-300";
-    default:
-      return "bg-zinc-800 text-zinc-300";
-  }
-}
+// function statusClassName(status: string) {
+//   switch (status.toLowerCase()) {
+//     case "completed":
+//       return "bg-emerald-950 text-emerald-300";
+//     case "pending":
+//       return "bg-yellow-950 text-yellow-300";
+//     case "cancelled":
+//       return "bg-red-950 text-red-300";
+//     default:
+//       return "bg-zinc-800 text-zinc-300";
+//   }
+// }
 
 export default async function OrdersPage({ searchParams }: any) {
   const params = await searchParams;
 
-  const page = Number(params.page) || 1;
-  const search = params.search || "";
-  const limit = 10;
+  // const page = Number(params.page) || 1;
+  // const search = params.search || "";
+  // const limit = 10;
 
-  const { data, pagination } = await getOrders({ page, limit, search });
+  // const { data, pagination } = await getOrders({ page, limit, search });
 
-  const paginationHref = search
-    ? `/admin/orders?search=${encodeURIComponent(search)}&page=`
-    : "/admin/orders?page=";
+  // const paginationHref = search
+  //   ? `/admin/orders?search=${encodeURIComponent(search)}&page=`
+  //   : "/admin/orders?page=";
 
   return (
     <div className="mx-auto max-w-6xl">
-      <div className="mb-6 flex items-center justify-between">
+      <h1 className="text-2xl font-bold text-zinc-100">Orders</h1>
+      {/* <div className="mb-6 flex items-center justify-between"> */}
         {/* <h1 className="text-2xl font-bold text-zinc-100">Orders</h1> */}
-        <OrderSearch />
+        {/* <OrderSearch /> */}
         {/* <OrderFilter /> */}
-      </div>
+      {/* </div> */}
 
-      <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
+      {/* <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow-lg shadow-black/20">
         <div className="grid grid-cols-4 bg-zinc-800/80 p-4 font-semibold text-zinc-300">
           <div>Order ID</div>
           <div>Customer</div>
@@ -80,7 +81,7 @@ export default async function OrdersPage({ searchParams }: any) {
           totalPages={pagination.totalPages}
           href={paginationHref}
         />
-      </div>
+      </div> */}
     </div>
   );
 }
